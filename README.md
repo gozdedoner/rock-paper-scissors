@@ -1,9 +1,17 @@
-# Rock Paper Scissors – Evil Al Edition 🧠🪨📄✂️
+# 🪨 Rock Paper Scissors – Evil Al Edition 🎮
 
-A 5-round terminal-based Rock-Paper-Scissors game against the villain Evil Al.  
-Player chooses using Rock / Paper / Scissors or r / p / s.  
-Score is tracked and the world is at stake!
+A 5-round console-based Rock, Paper, Scissors game against the evil AI, Evil Al.
 
-🔁 Built with plain JavaScript logic.  
-🧪 No HTML/CSS styling as per assignment rules.
+## 🎯 Features:
+- Play against computer (Evil Al)
+- Input choices using `Rock`, `Paper`, `Scissors` or `r`, `p`, `s`
+- 5 rounds with score tracking
+- Funny narration and evil quotes
+- Option to play again
 
+## 🔗 Live Demo:
+[Click to Play](https://gozdedoner.github.io/rock-paper-scissors/)
+
+## 🛠️ Technologies:
+- JavaScript (Vanilla)
+- No CSS/HTML styling as per assignment rules
