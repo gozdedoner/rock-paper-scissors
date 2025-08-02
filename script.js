@@ -5,22 +5,21 @@ function computerPlay() {
 }
 
 function playRound(playerSelection, computerSelection) {
-  const playerChoice = playerSelection.toLowerCase();
-  const computerChoice = computerSelection.toLowerCase();
-
-  const winConditions = {
+  const player = playerSelection.toLowerCase();
+  const computer = computerSelection.toLowerCase();
+  const winMap = {
     rock: "scissors",
     paper: "rock",
     scissors: "paper",
   };
 
-  if (playerChoice === computerChoice) {
+  if (player === computer) {
     return `It's a Tie! You both chose ${playerSelection}.`;
-  } else if (winConditions[playerChoice] === computerChoice) {
-    return `You Win! ${playerSelection} beats ${computerSelection}.`;
-  } else {
-    return `You Lose! ${computerSelection} beats ${playerSelection}.`;
   }
+  if (winMap[player] === computer) {
+    return `You Win! ${playerSelection} beats ${computerSelection}.`;
+  }
+  return `You Lose! ${computerSelection} beats ${playerSelection}.`;
 }
 
 function getPlayerChoice() {
@@ -31,61 +30,57 @@ function getPlayerChoice() {
     paper: "Paper",
     s: "Scissors",
     scissors: "Scissors",
-    scissor: "Scissors",
   };
 
-  let choiceInput;
-  let isValidChoice = false;
-
-  while (!isValidChoice) {
-    choiceInput = prompt(
-      "Evil Al: Choose your weapon! Rock, Paper, or Scissors? (or just r/p/s)"
+  while (true) {
+    const input = prompt(
+      "Evil Al: Choose your weapon! Rock, Paper or Scissors (or r/p/s):"
     );
-
-    if (choiceInput === null) {
-      console.log(
-        "Evil Al: Hah! Quitter! My world domination plans are unstoppable!"
-      );
+    if (input === null) {
+      console.log("Evil Al: Coward! You quit the game. I win!");
       return null;
     }
 
-    const trimmedChoice = choiceInput.trim().toLowerCase();
-
-    if (validChoices[trimmedChoice]) {
-      isValidChoice = true;
-      return validChoices[trimmedChoice];
-    } else {
-      console.log(
-        "Evil Al: Invalid choice! You must choose 'Rock', 'Paper', 'Scissors', or just 'r', 'p', 's'."
-      );
+    const choice = input.trim().toLowerCase();
+    if (validChoices[choice]) {
+      return validChoices[choice];
     }
+    console.log(
+      "Evil Al: Invalid input! Choose Rock, Paper or Scissors (or r/p/s)."
+    );
   }
 }
 
 function askPlayAgain() {
-  const playAgain = confirm("Would you like to play again?");
-  return playAgain;
+  return confirm("Would you like to play again?");
+}
+
+function gameIntro() {
+  console.log("🧠 Welcome to EVIL AL’S WORLD DOMINATION CHALLENGE!");
+  console.log(
+    "💀 Evil Al, the notorious AI overlord, is attempting to conquer Earth... with Rock, Paper, Scissors!"
+  );
+  console.log(
+    "Your mission, brave human, is to defeat him in a 5-round battle using your wits and a bit of luck."
+  );
+  console.log(
+    "🎯 HOW TO PLAY:\n- Enter 'Rock', 'Paper', or 'Scissors'\n- Or simply use shortcuts: 'r', 'p', 's'"
+  );
+  console.log("📱 Tip: Press Cancel to surrender (Al will mock you!)");
+  console.log(
+    "⚔️ Let the battle begin... and may the odds be ever in your favor!\n"
+  );
 }
 
 function game() {
-  console.log(
-    "Hello guys, I've hacked this assignment, for I am a bad Al that wants to dominate the world through the game of ROCK, PAPER or SCISSORS!"
-  );
-  console.log(
-    "Unfortunately Branko can't help you now and the only way to stop me is to follow these steps!"
-  );
-  console.log("Let's play 5 rounds of Rock, Paper, Scissors!");
-
+  gameIntro();
   let playerScore = 0;
   let computerScore = 0;
-  const totalRounds = 5;
 
-  for (let currentRound = 0; currentRound < totalRounds; currentRound++) {
-    console.log(`\n--- Round ${currentRound + 1} ---`);
-
+  for (let round = 1; round <= 5; round++) {
+    console.log(`\n--- Round ${round} ---`);
     const playerSelection = getPlayerChoice();
     if (playerSelection === null) {
-      console.log("Evil Al: Coward! The game is over, and I win by default!");
       return;
     }
 
@@ -93,47 +88,37 @@ function game() {
     console.log(`You chose: ${playerSelection}`);
     console.log(`Evil Al chose: ${computerSelection}`);
 
-    const roundResult = playRound(playerSelection, computerSelection);
-    console.log(roundResult);
+    const result = playRound(playerSelection, computerSelection);
+    console.log(result);
 
-    if (roundResult.includes("You Win!")) {
+    if (result.includes("Win")) {
       playerScore++;
-    } else if (roundResult.includes("You Lose!")) {
+    } else if (result.includes("Lose")) {
       computerScore++;
     }
 
-    console.log(
-      `Player Score: ${playerScore}, Evil Al Score: ${computerScore}`
-    );
+    console.log(`Score — You: ${playerScore}, Evil Al: ${computerScore}`);
   }
 
   console.log("\n--- Game Over ---");
-  console.log(`Final Score: You ${playerScore} - Evil Al ${computerScore}`);
-
   if (playerScore > computerScore) {
-    console.log(
-      "🎉 Congratulations! You have defeated the Evil Al and saved the world!"
-    );
+    console.log("🎉 You defeated Evil Al! The world is safe... for now.");
   } else if (computerScore > playerScore) {
-    console.log("💔 Oh no! Evil Al has won! The world is now doomed!");
+    console.log("💀 Evil Al wins! Humanity is doomed.");
   } else {
-    console.log("It's a final tie! Evil Al is confused but still evil!");
+    console.log("🤖 It's a tie! Evil Al is confused, but still menacing.");
   }
-
-  console.log("Thank you for playing!");
 }
 
 function startGame() {
-  let playingGame = true;
-
-  while (playingGame) {
+  let playing = true;
+  while (playing) {
     game();
-    playingGame = askPlayAgain();
-
-    if (playingGame) {
-      console.log("\nEvil Al: So you dare challenge me again? EXCELLENT!");
+    playing = askPlayAgain();
+    if (playing) {
+      console.log("\nEvil Al: Round 2? You dare challenge me again?");
     } else {
-      console.log("\nEvil Al: Until we meet again... MWAHAHAHA!");
+      console.log("\nEvil Al: Until we meet again... MWAHAHA!");
     }
   }
 }
